@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-cm
+spec:
+  restartPolicy: Never
+  containers:
+  - name: alpine
+    image: alpine
+    args:
+    - echo
+    - "Hello, $(STUDENT_NAME)!"
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+      capabilities:
+        drop: ["ALL"]
+      seccompProfile: 
+        type: RuntimeDefault
+    env:    
+    - name: STUDENT_NAME
+      valueFrom:
+        configMapKeyRef:
+          name: configmap-01
+          key: name
