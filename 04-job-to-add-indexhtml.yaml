@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-index-html
+spec:
+  template:
+    spec:
+      containers:
+      - name: creator
+        image: alpine
+        args:
+        - /bin/sh
+        - -c 
+        - "echo 'Hello from a volume' > /volume/index.html"
+        volumeMounts:
+          - mountPath: /volume
+            name: mounted-vol
+      volumes:
+      - name: mounted-vol
+        persistentVolumeClaim:
+          claimName: pvc01
+      restartPolicy: Never 
+  # Clean up job after 1 minute
+  ttlSecondsAfterFinished: 60
+  
