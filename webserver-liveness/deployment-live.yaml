@@ -17,7 +17,7 @@ spec:
           image: bogd/go-webserver:latest
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 1000
+            runAsNonRoot: true
             capabilities:
               drop: ["ALL"]
             seccompProfile:
@@ -34,9 +34,3 @@ spec:
               port: 8000
             periodSeconds: 2
             failureThreshold: 30
-          readinessProbe:
-            httpGet:
-              path: /readyz
-              port: 8000
-            periodSeconds: 2
-            failureThreshold: 2
