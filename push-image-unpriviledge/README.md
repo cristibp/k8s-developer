@@ -1,3 +1,8 @@
+podman image build -t docker.io/user-09/training-ngninx:v2 .
+
+docker login -u cral
+
+podman image push docker.io/cral/training-ngninx:v1 --log-level=debug
 ```
 jumphost:~$ podman image ls
 docker.io/user-09/training-ngninx  v1          52f656661975  50 minutes ago  191 MB
@@ -14,6 +19,7 @@ docker.io/user-09/training-ngninx  v1          52f656661975  50 minutes ago  191
 docker.io/cral/training-ngninx     v1          52f656661975  50 minutes ago  191 MB
 ```
 
+podman image push docker.io/cral/training-ngninx:v1 --log-level=debug
 
 Writing the Manifests
 You will need at least the following manifests:
@@ -42,3 +48,7 @@ oc describe pod $POD_NAME
 POD_NAME=$(oc get pod -l app=nginx-custom -o jsonpath={.items[0].metadata.name})
 oc logs $POD_NAME
 ```
+
+
+podman image build -t docker.io/cral/training:v2 .
+podman image push docker.io/cral/training:v2 --log-level=debug

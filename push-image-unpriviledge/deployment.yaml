@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: user-09/training-ngninx:v2
+          image: cral/training:v2
